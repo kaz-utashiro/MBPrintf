@@ -35,14 +35,12 @@ sub mbsprintf {
     for my $arg (@args) {
 	next if not defined $arg;
 	next if $arg !~ /$wchar_re/;
-
-	my $save = $arg;
-	$arg = $uniqstr->(mbwidth($arg));
-	push(@list, $arg, $save);
+	push(@list, $arg);
+	push(@list, $arg = $uniqstr->(mbwidth($arg)));
     }
     my $result = sprintf($format, @args);
-    while (my($from, $to) = splice(@list, 0, 2)) {
-	$result =~ s/$from/$to/;
+    while (my($orig, $tmp) = splice(@list, 0, 2)) {
+	$result =~ s/$tmp/$orig/;
     }
     $result;
 }
