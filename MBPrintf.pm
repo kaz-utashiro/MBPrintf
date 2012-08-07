@@ -9,7 +9,7 @@ BEGIN {
     use Exporter   ();
     our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
-    $VERSION = sprintf "%d.%03d", q$Revision: 1.5 $ =~ /(\d+)/g;
+    $VERSION = sprintf "%d.%03d", q$Revision: 1.6 $ =~ /(\d+)/g;
 
     @ISA         = qw(Exporter);
     @EXPORT      = qw(&mbprintf &mbsprintf);
@@ -51,9 +51,9 @@ sub mbprintf {
 
 sub mbwidth {
     my $arg = shift;
-    my $len;
-    while ($arg =~ m/($wchar_re+)|./g) {
-	$len += $1 ? length($1) * 2 : 1;
+    my $len = length($arg);
+    while ($arg =~ m/($wchar_re+)/g) {
+	$len += length($1);
     }
     $len;
 }
