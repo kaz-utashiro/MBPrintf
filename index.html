@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Mbprintf by kaz-utashiro</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Mbprintf</h1>
+        <p>printf compatible Perl library for multi-byte characters</p>
+
+        <p class="view"><a href="https://github.com/kaz-utashiro/MBPrintf">View the Project on GitHub <small>kaz-utashiro/MBPrintf</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/kaz-utashiro/MBPrintf/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/kaz-utashiro/MBPrintf/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/kaz-utashiro/MBPrintf">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>
+<a name="name" class="anchor" href="#name"><span class="octicon octicon-link"></span></a>NAME</h2>
+
+<pre><code>   MBPrintf − printf family functions to handle multi−byte characters
+</code></pre>
+
+<h2>
+<a name="synopsis" class="anchor" href="#synopsis"><span class="octicon octicon-link"></span></a>SYNOPSIS</h2>
+
+<pre><code>   use MBPrintf;
+
+   mbprintf(FORMAT, LIST)
+
+   mbsprintf(FORMAT, LIST)
+</code></pre>
+
+<h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>DESCRIPTION</h2>
+
+<pre><code>   "MBPrintf" is a almost‐printf‐compatible library with a capability of
+   handling multi‐byte wide characters properly.
+
+   "MBPrintf" は、マルチバイト文字を処理するための、ほぼ printf と互換
+   のライブラリ関数です。
+</code></pre>
+
+<h2>
+<a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>FUNCTIONS</h2>
+
+<pre><code>   mbprintf(FORMAT, LIST)
+   mbsprintf(FORMAT, LIST)
+       Use just like Perl’s printf and sprintf functions except that
+       printf does not take FILEHANDLE as a first argument.
+
+       使い方は Perl の printf, sprintf と同じです。ただし、ファイルハン
+       ドルを指定することはできません。
+</code></pre>
+
+<h2>
+<a name="implementation-notes" class="anchor" href="#implementation-notes"><span class="octicon octicon-link"></span></a>IMPLEMENTATION NOTES</h2>
+
+<pre><code>   Strings in the LIST which contains wide‐width character are replaced
+   before formatting, and recovered after the process.  Number of replaced
+   arguments are limited by 25.
+
+   LIST 中に全角文字を含む文字列があった場合、整形処理を行う前に別の文字列に
+   置換され、処理が終わった後で元に戻されます。変換する文字列の最大数は25に
+   制限されています。
+
+   Unique replacement string contains a combination of control characters
+   (Control‐A to Control‐E).  So, if the FORMAT contains a string in this
+   range, it has a chance to be a subject of replacement.
+
+   置換文字列には制御文字 (コントロールAからコントロールE）が含まれるため、
+   これらの文字が FORMAT に含まれている場合には注意が必要です。
+
+   Wide‐character judgement is done based on Unicode property
+   East_Asian_Width is Wide or FullWidth.  There is another value
+   Ambiguous and treatment of this type characters are literaly ambiguous
+   and is not considered now.  It might be better to use
+   Unicode::EastAsianWidth instead.
+
+   全角文字の判定は Unicode の East_Asian_Width プロパティが Wide あるいは
+   FullWidth であることで行っています。これ以外に Ambiguous という値があり
+   ますが、取り扱いが文字通り曖昧なため考慮していません。
+   Unicode::EastAsianWidth を使った方がいいのかも知れません。
+</code></pre>
+
+<h2>
+<a name="author" class="anchor" href="#author"><span class="octicon octicon-link"></span></a>AUTHOR</h2>
+
+<pre><code>   Copyright (c) 2011 Kazumasa Utashiro.  All rights reserved.
+</code></pre>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>LICENSE</h2>
+
+<pre><code>   See &lt;http://www.perl.com/perl/misc/Artistic.html&gt;
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/kaz-utashiro">kaz-utashiro</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
