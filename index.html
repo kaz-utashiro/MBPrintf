@@ -33,7 +33,7 @@
         <h2>
 <a name="name" class="anchor" href="#name"><span class="octicon octicon-link"></span></a>NAME</h2>
 
-<p>MBPrintf − printf family functions to handle multi−byte characters</p>
+<p>MBPrintf - printf family functions to handle multi-byte characters</p>
 
 <h2>
 <a name="synopsis" class="anchor" href="#synopsis"><span class="octicon octicon-link"></span></a>SYNOPSIS</h2>
@@ -47,11 +47,10 @@
 <h2>
 <a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>DESCRIPTION</h2>
 
-<p>"MBPrintf" is a almost‐printf‐compatible library with a capability of
-handling multi‐byte wide characters properly.</p>
+<p>MBPrintf is a almost-printf-compatible library with a capability of handling multi-byte wide characters properly.</p>
 
-<p>"MBPrintf" は、マルチバイト文字を処理するための、ほぼ printf と互換
-のライブラリ関数です。</p>
+<p>MBPrintf は、マルチバイト文字を処理するための、ほぼ printf と互換のラ
+イブラリ関数です。</p>
 
 <h2>
 <a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>FUNCTIONS</h2>
@@ -60,34 +59,34 @@ handling multi‐byte wide characters properly.</p>
 
 <p>mbsprintf(FORMAT, LIST)</p>
 
-<p>Use just like Perl’s printf and sprintf functions except that
-printf does not take FILEHANDLE as a first argument.</p>
+<p>Use just like perl's printf and sprintf functions
+except that printf does not take FILEHANDLE as a first argument.</p>
 
-<p>使い方は Perl の printf, sprintf と同じです。ただし、ファイルハン
-ドルを指定することはできません。</p>
+<p>使い方は Perl の printf, sprintf と同じです。ただし、ファイルハンドルを
+指定することはできません。</p>
 
 <h2>
 <a name="implementation-notes" class="anchor" href="#implementation-notes"><span class="octicon octicon-link"></span></a>IMPLEMENTATION NOTES</h2>
 
-<p>Strings in the LIST which contains wide‐width character are replaced
-before formatting, and recovered after the process.  Number of replaced
-arguments are limited by 25.</p>
+<p>Strings in the LIST which contains wide-width character are replaced
+before formatting, and recovered after the process.  Number of
+replaced arguments are limited by 25.</p>
 
-<p>LIST 中に全角文字を含む文字列があった場合、整形処理を行う前に別の文字列に
-置換され、処理が終わった後で元に戻されます。変換する文字列の最大数は25に
-制限されています。</p>
+<p>LIST 中に全角文字を含む文字列があった場合、整形処理を行う前に別の文字列
+に置換され、処理が終わった後で元に戻されます。変換する文字列の最大数は
+25に制限されています。</p>
 
 <p>Unique replacement string contains a combination of control characters
-(Control‐A to Control‐E).  So, if the FORMAT contains a string in this
+(Control-A to Control-E).  So, if the FORMAT contains a string in this
 range, it has a chance to be a subject of replacement.</p>
 
 <p>置換文字列には制御文字 (コントロールAからコントロールE）が含まれるため、
 これらの文字が FORMAT に含まれている場合には注意が必要です。</p>
 
-<p>Wide‐character judgement is done based on Unicode property
-East_Asian_Width is Wide or FullWidth.  There is another value
-Ambiguous and treatment of this type characters are literaly ambiguous
-and is not considered now.  It might be better to use
+<p>Wide-character judgement is done based on Unicode property
+East_Asian_Width is Wide or FullWidth.  There is another
+value Ambiguous and treatment of this type characters are literaly
+ambiguous and is not considered now.  It might be better to use
 Unicode::EastAsianWidth instead.</p>
 
 <p>全角文字の判定は Unicode の East_Asian_Width プロパティが Wide あるいは
@@ -103,7 +102,7 @@ Unicode::EastAsianWidth を使った方がいいのかも知れません。</p>
 <h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>LICENSE</h2>
 
-<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+<p>See L<a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
       </section>
       <footer>
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
