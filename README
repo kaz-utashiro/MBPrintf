@@ -1,19 +1,58 @@
-Perl 用マルチバイト文字対応 printf 関数
+NAME
+       MBPrintf − printf family functions to handle multi−byte characters
 
-mbprintf()
-mbsprintf()
+SYNOPSIS
+       use MBPrintf;
 
-使い方は、それぞれ printf, sprintf の代わりに使うだけ。
+       mbprintf(FORMAT, LIST)
 
-mbprintf でファイルハンドルを指定することは今のところできないので 
-mbsprintf の結果を出力してください。指定できるようにする方法があった
-ら教えてくれれば直します。
+       mbsprintf(FORMAT, LIST)
 
-引数の個数は25個が上限。それ以上でも使えると思うが、動作は保証できない。
+DESCRIPTION
+       "MBPrintf" is a almost‐printf‐compatible library with a capability of
+       handling multi‐byte wide characters properly.
 
-コントロールコード (^A-^E) を使っているので、それが含まれる文字列は正
-しく処理できない可能性あり。
+       "MBPrintf" は、マルチバイト文字を処理するための、ほぼ printf と互換
+       のライブラリ関数です。
 
-与えた引数の順番と結果の文字列中に出てくる順番が異なる場合には誤動作す
-る可能性あり。printf にそのような機能があったかどうかは忘れた。
-誤動作するのは1文字の文字列を与えた時だけだと思う。多分。
+FUNCTIONS
+       mbprintf(FORMAT, LIST)
+       mbsprintf(FORMAT, LIST)
+           Use just like Perl’s printf and sprintf functions except that
+           printf does not take FILEHANDLE as a first argument.
+
+           使い方は Perl の printf, sprintf と同じです。ただし、ファイルハン
+           ドルを指定することはできません。
+
+IMPLEMENTATION NOTES
+       Strings in the LIST which contains wide‐width character are replaced
+       before formatting, and recovered after the process.  Number of replaced
+       arguments are limited by 25.
+
+       LIST 中に全角文字を含む文字列があった場合、整形処理を行う前に別の文字列に
+       置換され、処理が終わった後で元に戻されます。変換する文字列の最大数は25に
+       制限されています。
+
+       Unique replacement string contains a combination of control characters
+       (Control‐A to Control‐E).  So, if the FORMAT contains a string in this
+       range, it has a chance to be a subject of replacement.
+
+       置換文字列には制御文字 (コントロールAからコントロールE）が含まれるため、
+       これらの文字が FORMAT に含まれている場合には注意が必要です。
+
+       Wide‐character judgement is done based on Unicode property
+       East_Asian_Width is Wide or FullWidth.  There is another value
+       Ambiguous and treatment of this type characters are literaly ambiguous
+       and is not considered now.  It might be better to use
+       Unicode::EastAsianWidth instead.
+
+       全角文字の判定は Unicode の East_Asian_Width プロパティが Wide あるいは
+       FullWidth であることで行っています。これ以外に Ambiguous という値があり
+       ますが、取り扱いが文字通り曖昧なため考慮していません。
+       Unicode::EastAsianWidth を使った方がいいのかも知れません。
+
+AUTHOR
+       Copyright (c) 2011 Kazumasa Utashiro.  All rights reserved.
+
+LICENSE
+       See <http://www.perl.com/perl/misc/Artistic.html>
