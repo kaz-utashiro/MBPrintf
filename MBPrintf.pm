@@ -1,4 +1,4 @@
-package MBPrintf;
+package Text::MBPrintf;
 
 use strict;
 use warnings;
@@ -9,22 +9,30 @@ BEGIN {
     use Exporter   ();
     our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
-    $VERSION = sprintf "%d.%03d", q$Revision: 1.6 $ =~ /(\d+)/g;
+    $VERSION = sprintf "%d.%03d", q$Revision: 1.7 $ =~ /(\d+)/g;
 
     @ISA         = qw(Exporter);
     @EXPORT      = qw(&mbprintf &mbsprintf);
     %EXPORT_TAGS = ( );
-    @EXPORT_OK   = qw(&mbwidth);
+    @EXPORT_OK   = qw(&mbwidth $wchar_re $Ambiguous);
 }
 our @EXPORT_OK;
 
+our $Ambiguous;
+our $wchar_re;
+
 END { }
 
-my $wchar_re;
-if (1) {
-    $wchar_re = qr/[\p{East_Asian_Width=Wide}\p{East_Asian_Width=FullWidth}]/;
-} else {
-    $wchar_re = qr/[\p{East_Asian_Width=Wide}\p{East_Asian_Width=FullWidth}\p{East_Asian_Width=Ambiguous}]/;
+BEGIN {
+    my $wide = "\\p{East_Asian_Width=Wide}";
+    my $fullwidth = "\\p{East_Asian_Width=FullWidth}";
+    my $ambiguous = "\\p{East_Asian_Width=Ambiguous}";
+
+    if ($Ambiguous) {
+	$wchar_re = qr/[${wide}${fullwidth}${ambiguous}]/;
+    } else {
+	$wchar_re = qr/[${wide}${fullwidth}]/;
+    }
 }
 
 sub mbsprintf {
@@ -74,6 +82,10 @@ sub _sub_uniqstr {
 
 __END__
 
+=pod
+
+=encoding utf8
+
 =head1 NAME
 
 MBPrintf - printf family functions to handle multi-byte characters
@@ -88,7 +100,8 @@ mbsprintf(FORMAT, LIST)
 
 =head1 DESCRIPTION
 
-C<MBPrintf> is a almost-printf-compatible library with a capability of handling multi-byte wide characters properly.
+C<MBPrintf> is a almost-printf-compatible library with a capability of
+handling multi-byte wide characters properly.
 
 =head1 FUNCTIONS
 
@@ -116,13 +129,17 @@ range, it has a chance to be a subject of replacement.
 Wide-character judgement is done based on Unicode property
 B<East_Asian_Width> is B<Wide> or B<FullWidth>.  There is another
 value B<Ambiguous> and treatment of this type characters are literaly
-B<ambiguous> and is not considered now.  It might be better to use
-L<Unicode::EastAsianWidth> instead.
+B<ambiguous>.  Set module variable C<$Text::MBPrintf::Ambiguous> in
+advance to use these characters as wide.
 
+    BEGIN {
+        $Text::MBPrintf::Ambiguous = 1;
+    }
+    use Text::MBPrintf qw($wchar_re);
 
 =head1 AUTHOR
 
-Copyright (c) 2011 Kazumasa Utashiro.  All rights reserved.
+Copyright (c) 2011-2014 Kazumasa Utashiro.  All rights reserved.
 
 =head1 LICENSE
 
